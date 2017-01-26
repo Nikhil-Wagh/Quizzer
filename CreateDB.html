@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+<title>Create your database</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/mdb.min.css">
+</head>
+<script>
+    $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<style>
+    .md-form{
+        padding: 10px;
+    }
+    .row{
+        padding: 10px;
+    }
+    </style>
+<body>
+    <div class="md-form">
+        <textarea type="text" id="question1" class="md-textarea"  data-toggle="tooltip" data-placement="bottom" title="Enter your Question in this textarea." ></textarea>
+        <label for="question1">Enter your Question</label>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" id="opt1" class="form-control" >
+                <label for = "opt1" >Option 1</label>
+                    <fieldset class="form-group">
+                        <input type="checkbox" class="filled-in" id="checkbox1">
+                        <label for="checkbox1">Correct Answer</label>
+                    </fieldset>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" id="opt2" class="form-control">
+                <label for = "opt2" >Option 2</label>
+                    <fieldset class="form-group">
+                        <input type="checkbox" class="filled-in" id="checkbox2">
+                        <label for="checkbox2">Correct Answer</label>
+                    </fieldset>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" id="opt3" class="form-control">
+                <label for = "opt3" >Option 3</label>
+                    <fieldset class="form-group">
+                        <input type="checkbox" class="filled-in" id="checkbox3">
+                        <label for="checkbox3">Correct Answer</label>
+                    </fieldset>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" id="opt4" class="form-control">
+                <label for = "opt4" >Option 4</label>
+                    <fieldset class="form-group">
+                        <input type="checkbox" class="filled-in" id="checkbox4">
+                        <label for="checkbox4">Correct Answer</label>
+                    </fieldset>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary waves-effect waves-light" role="button">Save</a>
+</body>
+</html>
