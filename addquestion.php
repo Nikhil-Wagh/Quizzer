@@ -1,3 +1,7 @@
+<?php
+include('session.php');
+//echo $_SESSION['qbid'];
+?>
 <!DOCTYPE html>
 <html lang ="en">
 <head>
@@ -42,7 +46,9 @@
                       opt2:$('#opt2').val(),
                       opt3:$('#opt3').val(),
                       opt4:$('#opt4').val(),
-                      ans:$('input[type="radio"]:checked').val()
+                      ans:$('input[type="radio"]:checked').val(),
+                      cmarks:$('#cmarks').val(),
+                      inmarks:$('#inmarks').val(),
         		},
                   function(data) {
                        $("#stage").html(data); 
@@ -106,9 +112,22 @@
                     </fieldset>
             </div>
         </div>
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" name="cmarks" id="cmarks" class="form-control">
+                <label for = "cmarks" >Marks for Correct Answer</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="md-form">
+                <input type = "text" name="inmarks" id="inmarks" class="form-control">
+                <label for = "inmarks" >Marks for Incorrect Answer</label>
+            </div>
+        </div>
     </div>
+    <button class="btn btn-default waves-effect waves-light " type="reset"  name="btn-clear" id="btn-clear" >CLEAR</button>
     <button class="btn btn-primary waves-effect waves-light " type="button"  name="btn-save" id="btn-save" >Save</button>
-    <a class="btn btn-danger waves-effect waves-light " type="button"  name="btn-home" id="btn-home" href="index.html">Home</a >
+    <a class="btn btn-danger waves-effect waves-light " type="button"  name="btn-home" id="btn-home" href="index.php">Home</a >
     </form>
 </body>
 </html>

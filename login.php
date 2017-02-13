@@ -1,32 +1,43 @@
 <?php
-include_once("connect.php");
-session_start();
-//if($_SESSION['handle']!=NULL)
-   {
-   // header("Location : index.html");
-}
-if(isset($_POST['btn-login']))
-   {
-    $uname=$conn->real_escape_string($_POST['uname']);
-    $handle= $conn->real_escape_string($_POST['handle']);
-    $upass= $conn->real_escape_string($_POST['password']);
-    $mob= $conn->real_escape_string($_POST['number']);
-    $clg= $conn->real_escape_string($_POST['college']);
-    $result;
-    $sql="INSERT INTO user VALUES ('$handle','$uname','$upass','$mob','$clg',0,'','','')";
-    //echo $sql;
-    if($result=mysqli_query($conn,$sql))
+include('session.php');
+//include('connect.php');
+//echo $_SESSION['handle'];
+if(!isset($_SESSION['handle']))
+{
+    if(isset($_POST['btn-login']))
     {
-        ?>
-        <script>alert("Login Successful!!");</script>
-        <?php
-        echo "<script>setTimeout(\"location.href = 'index.html';\",500);</script>";
+        $sql="SELECT * FROM user WHERE (handle = '".$_POST['handle']."' AND password = '".$_POST['password']."')";
+        //echo $sql;
+        if($result=mysqli_query($conn,$sql))
+        {
+            $row=mysqli_fetch_array($result);
+            $_SESSION['handle']=str_replace(' ','',$row['handle']);
+            ?>
+            <script>    
+                alert("Login Successful ".$_SESSION['handle']);
+                window.location.assign("index.php");
+            </script>
+        }
+        else
+        {
+            ?>
+            <script>alert("Handle not recognized.Please input correct data or sign up to register.");</script>
+            <?php
+        }
     }
-    else {
-        echo "Error Signing-UP,contact the administrator.";
-    }
+}
+else
+{
+    //echo $_SESSION['handle'];
+    ?>
+    <script>    
+    alert("Already Logged In");
+    window.location.assign("index.php");
+    </script>
+    <?php
 }
 ?>
+
 <html lang ="en">
 <head>
 <title>Test</title>
@@ -56,11 +67,7 @@ if(isset($_POST['btn-login']))
     <body>
     <div class="container">
         <form autocomplete="on" method="post">
-            <h1 class="display-4">Sign-Up</h1>
-            <p>
-                <label for="username" >Name</label>
-                <input id="uname" name="uname" required="required" type="text">
-            </p>
+            <h1 class="display-4">Log-In</h1>
             <p>
                 <label for="handle" >Handle</label>
                 <input id="handle" name="handle" required="required" type="text">
@@ -69,15 +76,8 @@ if(isset($_POST['btn-login']))
                 <label for="password" >Password</label>
                 <input id="password" name="password" required="required" type="password">
             </p>
-            <p>
-                <label for="unum" >Phone Number</label>
-                <input id="unum" maxlength="10" name="number" required="required" type="tel">
-            </p>
-            <p>
-                <label for="ucollege" >College</label>
-                <input id="ucollege" name="college" required="required" type="text">
-            </p>
-             <button class="btn btn-dark-green waves-effect waves-light " type="submit"  name="btn-login" id="btn-login" >SignUp</button>
+            <a class="btn btn-dark-green waves-effect waves-light " type="button" href="SignUp.php" >Sign Up</a>
+             <button class="btn btn-dark-green waves-effect waves-light " type="submit"  name="btn-login" id="btn-login" >Login</button>
         </form>
         </div>
     </body>

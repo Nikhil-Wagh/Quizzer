@@ -1,11 +1,23 @@
 <?php
     include("session.php");
+    if(!isset($_SESSION['handle']))
+    {
+        ?>
+        <script>alert("You need to Login to Continue")</script>
+        <?php
+        header("Location: SignUp.php");
+    }
+    /*echo "question number".$_SESSION['qno'];
+    echo "<br>Total ".$_SESSION['tqno'];
+    echo "<br>qbid ".$_SESSION['qbid'];
+    echo "<br>";*/
+    $_SESSION['qno'] = ($_SESSION['qno'])%$_SESSION['tqno'];
     $_SESSION['qno']++;
-    $sqlq="SELECT * FROM questionbank WHERE qno= ".$_SESSION['qno'];
+    
+    $sqlq="SELECT * FROM questionbank.".$_SESSION['qbid']." WHERE qno= ".$_SESSION['qno'];
+    //echo $sqlq;
     $result = mysqli_query($conn,$sqlq);
     global $row;$sans=0;
-    //echo $_SESSION['score'];
-    //echo $_SESSION['handle'];
     if(mysqli_num_rows($result)>0)
     {
         while($row=mysqli_fetch_array($result))
@@ -15,8 +27,14 @@
             $_SESSION['b']=$row['b'];
             $_SESSION['c']=$row['c'];
             $_SESSION['d']=$row['d'];
-            $_SESSION['correct']=$row['correct'];
+            //$_SESSION['correct']=$row['correct'];
         }
+    }
+    else
+    {
+        ?>
+        <script>alert("Error displaying questions");</script>
+        <?php
     }
 ?>
 <html lang ="en">
@@ -27,6 +45,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/sudo-systems/jquery-sudo-notify/master/dist/style/jquery.sudo-notify.min.css" />   
+<script type="text/javascript" src="https://cdn.rawgit.com/sudo-systems/jquery-sudo-notify/master/dist/jquery.sudo-notify.min.js"></script>
 <link rel="stylesheet" href="css/mdb.min.css">
     <style>
         .container{
@@ -41,6 +61,15 @@
             
         }
     </style>
+    <script>
+        $(document).ready(function(){
+          var sudoNotify = $('div#notificationContainer').sudoNotify();
+          sudoNotify.success($('input[type="radio"]:checked').val());
+/*          sudoNotify.warning('Some warning');
+          sudoNotify.error('Some error');
+          sudoNotify.close();*/
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -95,11 +124,9 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary waves-effect waves-light " type="button"  name="btn-save" id="btn-save" >Save</button>
-        <button class="btn btn-warning waves-effect waves-light " type="button"  name="btn-mark" id="btn-mark" >BOOKMARK</button>
-            <button class="btn btn-default waves-effect waves-light " type="button"  name="btn-clear" id="btn-clear" >CLEAR</button>
+        <button class="btn btn-default waves-effect waves-light " type="reset"  name="btn-clear" id="btn-clear" >CLEAR</button>
         <?php 
-        if($_SESSION['total']>$_SESSION['qno'])
+        if($_SESSION['tqno']>$_SESSION['qno'])
         {
             ?>
             <button class="btn btn-dark-green waves-effect waves-light " type="submit"  name="btn-next" id="btn-next" >NEXT</button>
@@ -110,5 +137,6 @@
     </form>
         
         </div>
+    <div id="notificationContainer"></div>
 </body>
 </html>
