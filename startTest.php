@@ -19,6 +19,29 @@ function getid($conn)
     $_SESSION['tqno'] = $row['tqno'];
     return $row['qbid'];
 }
+function create_array($conn)
+{
+    $_SESSION['questions'] =  array();
+    $temp = array();
+    $sql = "SELECT * FROM questionbank.".$_SESSION['qbid'];
+    $result = mysqli_query($conn,$sql);
+    if(mysqli_num_rows($result)>0)
+    {
+        while($row = mysqli_fetch_array($result))
+        {
+            array_push($temp,$row['qno']);
+        }
+    }
+    shuffle($temp);
+    for($i=0;$i<$_SESSION['tqno'];$i++)
+    {
+        $_SESSION['questions'][$i] = $temp[$i];
+       // echo $_SESSION['questions'][$i]." ";
+    }
+    if($i==$_SESSION['tqno'])
+        return true;
+    return false;
+}
 if(isset($_POST['btn-start']))
 {
     $_SESSION['examid']=$_POST['examid'];
@@ -41,9 +64,16 @@ if(isset($_POST['btn-start']))
         }
         else
         {
-            ?>
-            <script>window.location.assign("displayQuestion.php");</script>
-            <?php
+            if(create_array($conn))
+            {
+                ?>
+                <script>window.location.assign("displayQuestion.php");</script>
+                <?php
+            }
+            else
+            {
+                //Error
+            }
         }
     }
 }

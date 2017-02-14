@@ -1,3 +1,6 @@
+<!--
+}-->
+
 <?php
 include("session.php");
 if(!isset($_SESSION['handle']))
@@ -9,13 +12,29 @@ if(!isset($_SESSION['handle']))
     </script>
     <?php
 }
-
 if(isset($_POST['btn-selectqb']))
 {
     $_SESSION['qbid']=$_POST['qbid'];
-    header("Location: addquestion.php");
+    $_SESSION['questions']=array();
+    $sql = "SELECT * FROM questionbank.".$_SESSION['qbid'];
+    $result = mysqli_query($conn,$sql);
+    if(mysqli_num_rows($result)>0)
+    {
+        while($row = mysqli_fetch_array($result))
+        {
+            array_push($_SESSION['questions'],$row['qno']);
+        }
+    }
+    ?>
+    <script>
+        window.location.assign("editquestion.php");
+    </script>
+    <?php
 }
-
+if(isset($_POST['btn-edit']))
+{
+    $_SESSION['qno']=0;  
+}
 ?>
 <html lang ="en">
 <head>

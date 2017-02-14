@@ -14,8 +14,8 @@
     $_SESSION['qno'] = ($_SESSION['qno'])%$_SESSION['tqno'];
     $_SESSION['qno']++;
     
-    $sqlq="SELECT * FROM questionbank.".$_SESSION['qbid']." WHERE qno= ".$_SESSION['qno'];
-    //echo $sqlq;
+    $sqlq="SELECT * FROM questionbank.".$_SESSION['qbid']." WHERE qno= ".$_SESSION['questions'][$_SESSION['qno']-1];
+    echo $sqlq;
     $result = mysqli_query($conn,$sqlq);
     global $row;$sans=0;
     if(mysqli_num_rows($result)>0)

@@ -70,7 +70,7 @@ if(isset($_POST['btn-db']))
 <!DOCTYPE html>
 <html lang ="en">
 <head>
-<title>Create your database</title>
+<title>Quizzer</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -104,7 +104,7 @@ if(isset($_POST['btn-db']))
 }
 </style>
     <div class="container">
-        <h1 class=" display-1 flex-center">Quizer</h1>
+        <h1 class=" display-1 flex-center">Quizzer</h1>
         <medium class="animated fadeInUp text-muted flex-center">Want to host a Online Competition? You have come just to the right place.</medium>
     </div>
          
@@ -125,7 +125,9 @@ if(isset($_SESSION['handle']))
                 <h1 class="display-4">You already have a database.</h1>
                 <p>Click the button to add questions to your existing questionbank.</p>
                 <a class="btn btn-primary waves-effect waves-light" href="addquestion.php">Add Questions</a>
-                <a class="btn btn-primary waves-effect waves-light" href="editquestion.php">Edit Questions</a>
+                <form method="post" action="selectqbedit.php">
+                <button class="btn btn-primary waves-effect waves-light" type= "submit" name ="btn-edit" id="btn-edit" >Edit Questions</button>
+                </form>
                 <?php
             }
         }
