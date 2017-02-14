@@ -19,6 +19,40 @@ The contestant need to press the start test button and choose the test for which
 Instructions would be given to the contestant before the test.
 At the end of his test he is allowed to see his marks as well as the leader board to see where he stands.
 
+# How to use at local Host?
+To use this app at local host you need to use [XAMPP](https://www.apachefriends.org/index.html).Start Apache and MySql and use php myadmin to create 2 databases one should be 'questionbank' and the other should be 'quizzer' , the names should be exact.
+Create three tables in quizzer database, or just copy and paste these commands in the console:
+
+```
+use quizzer // to use the quizzer database
+
+// The following command should make a table 'user' in quizzer 
+CREATE TABLE user1 (
+handle VARCHAR (20) PRIMARY KEY,
+password VARCHAR (20),
+username VARCHAR (25),
+mob VARCHAR(12),
+email VARCHAR(25),
+college TEXT(25))
+
+// The following command should make a table 'examdetails' in quizzer
+CREATE TABLE examdetailsS (
+id INT(11) AUTO_INCREMENT PRIMARY KEY,
+handle VARCHAR (20),
+qbid INT (11),
+examname TEXT (25),
+orgname TEXT(25),
+tqno INT(11))
+
+// The following command should make a table 'qbdetails' in quizzer
+CREATE TABLE qbdetailsS (
+id INT(11) AUTO_INCREMENT PRIMARY KEY,
+handle VARCHAR (20),
+qbname VARCHAR (25))
+```
+Once this is done put this link in your browser (http://localhost/Quizer/index.php) and you are ready to go.
+
+
 ## Update 
 **The current version is 3.54 (Feb 14th, 2017)**
 In this version major changes have been made. The database structure is altered greatly and many features have been improved like:
