@@ -22,12 +22,13 @@ At the end of his test he is allowed to see his marks as well as the leader boar
 # How to use at local Host?
 To use this app at local host you need to use [XAMPP](https://www.apachefriends.org/index.html).Start Apache and MySql and use php myadmin to create 2 databases one should be 'questionbank' and the other should be 'quizzer' , the names should be exact.
 Create three tables in quizzer database, or just copy and paste these commands in the console:
+(Console is at the bottom of the screen in phpmyadmin. Press ctrl+enter to execute the command)
 
 ```
 use quizzer // to use the quizzer database
 
 // The following command should make a table 'user' in quizzer 
-CREATE TABLE user1 (
+CREATE TABLE user (
 handle VARCHAR (20) PRIMARY KEY,
 password VARCHAR (20),
 username VARCHAR (25),
@@ -36,7 +37,7 @@ email VARCHAR(25),
 college TEXT(25))
 
 // The following command should make a table 'examdetails' in quizzer
-CREATE TABLE examdetailsS (
+CREATE TABLE examdetails (
 id INT(11) AUTO_INCREMENT PRIMARY KEY,
 handle VARCHAR (20),
 qbid INT (11),
@@ -45,7 +46,7 @@ orgname TEXT(25),
 tqno INT(11))
 
 // The following command should make a table 'qbdetails' in quizzer
-CREATE TABLE qbdetailsS (
+CREATE TABLE qbdetails (
 id INT(11) AUTO_INCREMENT PRIMARY KEY,
 handle VARCHAR (20),
 qbname VARCHAR (25))
