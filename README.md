@@ -1,4 +1,4 @@
-# Quizer
+# Quizzer
 A online portal to host your competitions.
 
 # About the app
@@ -20,8 +20,8 @@ Instructions would be given to the contestant before the test.
 At the end of his test he is allowed to see his marks as well as the leader board to see where he stands.
 
 # How to use at local Host?
-To use this app at local host you need to use [XAMPP](https://www.apachefriends.org/index.html).Start Apache and MySql and use php myadmin to create 2 databases one should be 'questionbank' and the other should be 'quizzer' , the names should be exact.
-Create three tables in quizzer database, or just copy and paste these commands in the console:
+To use this app at local host you need to use [XAMPP](https://www.apachefriends.org/index.html).Start Apache and MySql and use php myadmin to create 2 databases one should be 'questionbank' and the other should be 'quizzer' , the names should be exact. Then download this app and unzip it it the C:/xampp/htdocs , this is the folder were all your projects should be placed.
+Create three tables in quizzer database, or just copy and paste these commands in the console of phpmyadmin:
 (Console is at the bottom of the screen in phpmyadmin. Press ctrl+enter to execute the command)
 
 ```
