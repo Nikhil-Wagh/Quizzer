@@ -13,15 +13,20 @@ if(!isset($_SESSION['handle']))
             $row=mysqli_fetch_array($result);
             $_SESSION['handle']=str_replace(' ','',$row['handle']);
             ?>
-            <script>    
-                alert("Login Successful ".$_SESSION['handle']);
-                window.location.assign("index.php");
-            </script>
+                <script type="text/javascript">  
+                    var temp = "Hello"; 
+                    alert("Login Successfull "+'<?php echo $_SESSION['handle'] ?>');
+                    window.location.assign("index.php");
+                </script>
+            <?php
         }
         else
         {
             ?>
-            <script>alert("Handle not recognized.Please input correct data or sign up to register.");</script>
+            <script>
+                alert("Handle not recognized.Please input correct data or sign up to register.");
+                window.location.assign("login.php");
+            </script>
             <?php
         }
     }

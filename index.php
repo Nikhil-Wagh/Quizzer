@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+//echo $_SESSION['handle'];
 if(isset($_SESSION['handle']))
 {
     echo "Welcome ".$_SESSION['handle'];
@@ -108,8 +109,10 @@ if(isset($_POST['btn-db']))
     </div>
          
 <body>
-    <?php
-    $checksql="SELECT id FROM qbdetails WHERE handle= '".$_SESSION['handle']."'";
+<?php
+if(isset($_SESSION['handle']))
+{
+        $checksql="SELECT id FROM qbdetails WHERE handle= '".$_SESSION['handle']."'";
     //echo $checksql;
     $result=mysqli_query($conn,$checksql);
     if(mysqli_num_rows($result)>0)
@@ -122,11 +125,14 @@ if(isset($_POST['btn-db']))
                 <h1 class="display-4">You already have a database.</h1>
                 <p>Click the button to add questions to your existing questionbank.</p>
                 <a class="btn btn-primary waves-effect waves-light" href="addquestion.php">Add Questions</a>
+                <a class="btn btn-primary waves-effect waves-light" href="editquestion.php">Edit Questions</a>
                 <?php
             }
         }
     }
-    ?>
+    
+}
+?>
     <form method = "post">
     <p>
         <label for="qbname" >Question Bank Name</label>
