@@ -19,7 +19,8 @@ The contestant need to press the start test button and choose the test for which
 Instructions would be given to the contestant before the test.
 At the end of his test he is allowed to see his marks as well as the leader board to see where he stands.
 
-## Update # The current version is 3.54 (Feb 14th, 2017)
+## Update 
+**The current version is 3.54 (Feb 14th, 2017)**
 In this version major changes have been made. The database structure is altered greatly and many features have been improved like:
 - The user can now make as many number of question banks as he require
 - The user can now host as many Exams as he require
