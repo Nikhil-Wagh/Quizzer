@@ -28,7 +28,7 @@ In this version major changes have been made. The database structure is altered 
 - Login/SignUp improved they were having issues.
 
 ### TODO
-See issues.
+[See issues](https://github.com/Nikhil-Wagh/Quizer/issues).
 
 ## License
 [BSD License](https://opensource.org/licenses/BSD-3-Clause) © Prototype/Quizzer
