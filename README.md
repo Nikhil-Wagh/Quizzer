@@ -1,5 +1,6 @@
 # Quizzer
 A online portal to host your competitions.
+[Quizzer](https://wagh.000webhostapp.com/index.php)
 
 # About the app
 This is a online portal to host quiz like competitions. Many Colleges do have a system of taking aptitude test online, and they need that for just 2-3 days, and ofcourse don't want to spend any money for that. This web-app is made to achieve that objective. This is absolutely free of cost, but you may contribute to the project to help us expand :P .
@@ -55,8 +56,10 @@ Once this is done put this link in your browser (http://localhost/Quizer/index.p
 
 
 ## Update 
-**The current version is 3.54 (Feb 14th, 2017)**
-In this version major changes have been made. The database structure is altered greatly and many features have been improved like:
+**The current version is 4.29 (Feb 28th, 2017)**
+In this version major changes have been made. The database structure is altered greatly and many features have been improved
+The site is completely functioning now.
+like:
 - The user can now make as many number of question banks as he require
 - The user can now host as many Exams as he require
 - The user can once give a test, he is not allowed to give a particular test more than once.
