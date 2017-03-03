@@ -1,4 +1,5 @@
 <?php
+//error_reporting(0);
 include_once("connect.php");
 session_start();
 if(isset($_SESSION['handle']))
@@ -6,7 +7,7 @@ if(isset($_SESSION['handle']))
     header("Location : index.html");
 }
 if(isset($_POST['btn-signup']))
-   {
+{
     $uname=$conn->real_escape_string($_POST['uname']);
     $handle= $conn->real_escape_string($_POST['handle']);
     $upass= $conn->real_escape_string($_POST['password']);
@@ -27,14 +28,15 @@ if(isset($_POST['btn-signup']))
     }
     else {
        ?>
-        <script>alert("Handle already in use.Please try again.");</script>
+        <script>alert("Handle already in use.Please try something else.");</script>
         <?php
     }
 }
 ?>
 <html lang ="en">
 <head>
-<title>Test</title>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<title>Sign Up</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -59,36 +61,39 @@ if(isset($_POST['btn-signup']))
     </style>
 </head>
     <body>
-    <div class="container">
+    <div class="container" style="height: 120vh;">
         <form autocomplete="on" method="post">
-            <h1 class="display-4">Sign-Up</h1>
+            <h1 class="display-4"> Sign-Up </h1><br>
             <p>
-                <label for="username" >Name</label>
+                <label for="username" > Name </label>
                 <input id="uname" name="uname" required="required" type="text">
             </p>
             <p>
-                <label for="handle" >Handle</label>
+                <label for="handle" > Handle </label>
                 <input id="handle" name="handle" required="required" type="text">
             </p>
             <p>
-                <label for="password" >Password</label>
+                <label for="password" > Password </label>
                 <input id="password" name="password" required="required" type="password">
             </p>
             <p>
-                <label for="unum" >Phone Number</label>
+                <label for="unum" > Phone Number </label>
                 <input id="unum" maxlength="10" name="number" required="required" type="tel">
             </p>
             <p>
-                <label for="emai" >Email id</label>
+                <label for="emai" > Email id </label>
                 <input id="email" name="email" required="required" type="email">
             </p>
             <p>
-                <label for="ucollege" >College</label>
+                <label for="ucollege" > College/School </label>
                 <input id="ucollege" name="college" required="required" type="text">
             </p>
-            <button class="btn btn-dark-green waves-effect waves-light " type="submit"  name="btn-signup" id="btn-signup" >SignUp</button>
-            <label for="btn-login">Already have a account</label> 
-            <button class="btn btn-dark-green waves-effect waves-light " type="button" style="align:left" name ="btn-login" href="login.php" >Log in</button>
+            <div class="flex-center" style="height: 10vh;">
+                <button class="btn btn-success" type="submit" name="btn-signup" id="btn-signup"> SignUp </button>
+            </div>
+            <div>
+                <h4> Already have an account? <a href="login.php"> Login </a></h4> 
+            </div>
         </form>
         </div>
     </body>
