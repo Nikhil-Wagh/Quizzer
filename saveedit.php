@@ -3,9 +3,9 @@ include('session.php');
 //error_reporting(0);
 if(isset($_POST['btn-edit']))
 {
-    $sql = "UPDATE questionbank.".$_SESSION['qbid']." SET question = '".$_POST['question']."', a = '".$_POST['a']."', b = '".$_POST['b']."', c = '".$_POST['c']."', d = '".$_POST['d']."', correct = '".$_POST['radiobutton']."', cmarks = '".$_POST['cmarks']."', inmarks = '".$_POST['inmarks']."' WHERE qno = ".$_SESSION['questions'][$_SESSION['qno']-1];
+    $sql = "UPDATE id593597_questionbank.".$_SESSION['qbid']." SET question = '".$_POST['question']."', a = '".$_POST['a']."', b = '".$_POST['b']."', c = '".$_POST['c']."', d = '".$_POST['d']."', correct = '".$_POST['radiobutton']."', cmarks = '".$_POST['cmarks']."', inmarks = '".$_POST['inmarks']."' WHERE qno = ".$_SESSION['questions'][$_SESSION['qno']-1];
     
-    if(mysqli_query($conn,$sql))
+    if(mysqli_query($conn2,$sql))
     {
         ?>
         <script>
@@ -19,8 +19,8 @@ if(isset($_POST['btn-edit']))
 }
 if(isset($_POST['btn-del']))
 {
-    $sql = "DELETE FROM question.".$_SESSION['qbid']." WHERE qno = ".$_SESSION['questions'][$qno-1];
-    if(mysqli_query($conn,$sql))
+    $sql = "DELETE FROM id593597_questionbank.".$_SESSION['qbid']." WHERE qno = ".$_SESSION['questions'][$_SESSION['qno']-1];
+    if(mysqli_query($conn2,$sql))
     {
         ?>
         <script>
@@ -29,7 +29,7 @@ if(isset($_POST['btn-del']))
         </script>
         <?php
     }
-     else
+    else
     echo "Could Not Delete.Please try again";
 }
 ?>
