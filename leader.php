@@ -1,39 +1,69 @@
 <?php
 include("session.php");
-$sql="SELECT * FROM quizzer.".$_SESSION['examid']." ORDER BY score DESC";
+//error_reporting(0);
+$sql="SELECT * FROM id593597_quizzer.".$_SESSION['examid']." , user where id593597_quizzer.".$_SESSION['examid'].".handle=user.handle ORDER BY score DESC";
+//echo $sql;
 $result=mysqli_query($conn,$sql);
 //echo $_SESSION['ename'];
 if(mysqli_num_rows($result)>0)
 {
     echo "<h1 class='display-3'>Leader Board</h1>";
-    echo "<table>";
-    echo " <tr>
+    echo "<table class = 'table table-hover'>";
+    echo " <thead>
+            <tr>
             <th>Rank</th>
             <th>Handle</th>
             <th>Score</th>
             <th>Attempted</th>
-        </tr>";
+            <th>Mobile Number</th>
+            <th>Email ID</th>
+            <th>College</th>
+            </tr>
+            </thead>";
     $rank=1;
     while($row=mysqli_fetch_array($result))
     {
-        echo "<tr>
+       if($row['handle']==$_SESSION['handle'])
+       {
+               echo "<tbody>
+                <tr class='info'>
                 <td>{$rank}</td>
                 <td>{$row['handle']}</td>
                 <td>{$row['score']}</td>
                 <td>{$row['attempted']}</td>
-            </tr>";
+                <td>{$row['mob']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['college']}</td>          
+                </tr>
+              </tbody>";
+       }
+        else
+       {
+        echo "<tbody>
+                <tr>
+                <td>{$rank}</td>
+                <td>{$row['handle']}</td>
+                <td>{$row['score']}</td>
+                <td>{$row['attempted']}</td>
+                <td>{$row['mob']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['college']}</td>          
+                </tr>
+              </tbody>";
+       }
         $rank++;
     }
     echo "</table>";
 }
 else 
 {
-    echo "Error retrieving values from database";
+     echo "<h4 class='display-4' align:'center'>No Entries yet</h4>";
 }
 ?>
 <!DOCTYPE html>
 <html lang ="en">
 <head>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <title>Leader Board</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"> 
@@ -57,7 +87,7 @@ else
         display: table;
     }
     td, th {
-    border: 1px solid #dddddd;
+    //border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
 }
@@ -74,5 +104,3 @@ else
        <a class='btn btn-primary waves-effect waves-light' type='button' name='btn-home' href='index.php'>Home</a>;
     </body>
 </html>
-
-    
