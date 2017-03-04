@@ -199,6 +199,8 @@
             if ((endmin-nowmin) < 0&&(endsec-nowsec)<0) {
                 clearInterval(x);
                 document.getElementById("demo").innerHTML = "EXPIRED";
+                alert("Times Up");
+                windo.location.assign('score.php');
             }
         }, 1000);
     </script>
