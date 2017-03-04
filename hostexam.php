@@ -1,82 +1,92 @@
 <?php
 include("session.php");
+//error_reporting(0);
 if(!isset($_SESSION['handle']))
 {
     ?>
-    <script>alert("Please Login to Create Database");</script>
+    <script>
+        alert("Please Login to Create Database");
+        window.location.assign("login.php");
+    </script>
     <?php
-    header("Location: SignUp.php");
+    
 }
-function insert($conn,$oname,$ename,$total)
+else
 {
-    $sql = "INSERT INTO examdetails (handle, qbid, examname, orgname, tqno) VALUES ('".$_SESSION['handle']."',".$_SESSION['qbid'].",'".$ename."','".$oname."',".$total.")";
-    //echo $sql;
-    if(mysqli_query($conn,$sql))
+    function insert($conn,$oname,$ename,$total,$time)
     {
-        $sql = "SELECT * FROM examdetails WHERE handle = '".$_SESSION['handle']."'";
-        $result = mysqli_query($conn,$sql);
-        if(mysqli_num_rows($result)>0)
+         $sql = "INSERT INTO examdetails (handle, qbid, examname, orgname, tqno,time) VALUES ('".$_SESSION['handle']."',".$_SESSION['qbid'].",'".$ename."','".$oname."',".$total.",".$time.")";
+        //echo $sql;
+        if(mysqli_query($conn,$sql))
         {
-            while($row=mysqli_fetch_array($result))
+            $sql = "SELECT * FROM examdetails WHERE handle = '".$_SESSION['handle']."'";
+            $result = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result)>0)
             {
-                $_SESSION['examid']=$row['id'];
+                while($row=mysqli_fetch_array($result))
+                {
+                    $_SESSION['examid']=$row['id'];
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    function createtable($conn)
+    {
+        $table="CREATE TABLE id593597_quizzer.".$_SESSION['examid']." (
+            handle VARCHAR(50) PRIMARY KEY,
+            score INT(11),
+            attempted INT(11))";
+        //echo $table;
+         if(mysqli_query($conn,$table))
+         {
+             return true;
+         }
+        return false;
+    }
+    if(isset($_POST['btn-host']))
+    {
+        $oname = mysqli_real_escape_string($conn,$_POST['oname']);
+        $ename = mysqli_real_escape_string($conn,$_POST['ename']);
+        $total = mysqli_real_escape_string($conn,$_POST['total']); 
+        $time = mysqli_real_escape_string($conn,$_POST['time']); 
+        $_SESSION['qbid'] = mysqli_real_escape_string($conn,$_POST['qbid']);
+        $error=false;
+        if(insert($conn,$oname,$ename,$total,$time))
+        {
+            if(!createtable($conn))
+            {
+                $error=true;
             }
         }
-        return true;
-    }
-    return false;
-}
-function createtable($conn)
-{
-    $table="CREATE TABLE quizzer.".$_SESSION['examid']." (
-        handle VARCHAR(50) PRIMARY KEY,
-        score INT(11),
-        attempted INT(11))";
-    //echo $table;
-     if(mysqli_query($conn,$table))
-     {
-         return true;
-     }
-    return false;
-}
-if(isset($_POST['btn-host']))
-{
-    $oname = mysqli_real_escape_string($conn,$_POST['oname']);
-    $ename = mysqli_real_escape_string($conn,$_POST['ename']);
-    $total = mysqli_real_escape_string($conn,$_POST['total']); 
-    $error=false;
-    if(insert($conn,$oname,$ename,$total))
-    {
-        if(!createtable($conn))
+        else 
         {
-            $error=true;
+            $error = true;
         }
-    }
-    else 
-    {
-        $error = true;
-    }
-    if($error)
-    {
-        ?>
-        <script>alert("Error Hosting Exam.Please try again.");</script>
-        <?php
-    }
-    else
-    {
-        ?>
-        <script>
-            alert("Exam hosted Successfully");
-            window.location.assign("index.php");
-        </script>
-        <?php
+        if($error)
+        {
+            ?>
+            <script>alert("Error Hosting Exam.Please try again.");</script>
+            <?php
+        }
+        else
+        {
+            ?>
+            <script>
+                alert("Exam hosted Successfully");
+                window.location.assign("index.php");
+            </script>
+            <?php
+        }
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang ="en">
 <head>
-<title>Create your database</title>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<title>Host Quiz</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -104,7 +114,7 @@ if(isset($_POST['btn-host']))
 <body>
     <div class="container">
         <form method="post">
-        <h1 class="display-4"><small>Want to host a competition?</small>Create Exam </h1>
+        <h1 class="display-4"><small>Want to host a competition?</small> Create Quiz </h1>
             <p>
                 <label for="ename" >Exam Name</label>
                 <input id="ename" name="ename" required="required" type="text">
@@ -131,7 +141,7 @@ if(isset($_POST['btn-host']))
                             ?>
                             <script>
                                 alert("Please create a question bank.");
-                                window.location.assign("index.php");
+                                location = 'index.php#create';
                             </script>
                             <?php
                         }
@@ -139,10 +149,16 @@ if(isset($_POST['btn-host']))
                  </select>  
             </div>
             <p>
-                <label for="total" >Total number of question in exam</label>
-                <input id="total" name="total" required="required" type="number" min="0">
+                <label for="total" >Total number of questions in exam</label>
+                <input id="total" name="total" required="required" type="number" min="1">
             </p>
-            <button class="btn btn-primary waves-effect waves-light " type="submit"  name="btn-host" id="btn-host" >Host Exam</button>
+            <p>
+                <label for="total" >Time (in min)</label>
+                <input id="time" name="time" required="required" type="number" min="1">
+            </p>
+            <div class="flex-center" style="height: 10vh;">
+                <button class="btn btn-primary" type="submit" name="btn-host" id="btn-host" >Host Exam</button>
+            </div>
             </form>
     </div>
 </body>
