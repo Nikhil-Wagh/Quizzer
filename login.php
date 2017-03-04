@@ -1,24 +1,39 @@
 <?php
 include('session.php');
+//error_reporting(0);
 //include('connect.php');
 //echo $_SESSION['handle'];
 if(!isset($_SESSION['handle']))
 {
     if(isset($_POST['btn-login']))
     {
-        $sql="SELECT * FROM user WHERE (handle = '".$_POST['handle']."' AND password = '".$_POST['password']."')";
+        $handle = mysqli_real_escape_string($conn,$_POST['handle']);
+        $password =  mysqli_real_escape_string($conn,$_POST['password']);
+        $sql="SELECT * FROM user WHERE (handle = '".$handle."' AND password = '".$password."')";
         //echo $sql;
-        if($result=mysqli_query($conn,$sql))
+        $result=mysqli_query($conn,$sql);
+        if(mysqli_num_rows($result)>0)
         {
-            $row=mysqli_fetch_array($result);
-            $_SESSION['handle']=str_replace(' ','',$row['handle']);
-            ?>
-                <script type="text/javascript">  
-                    var temp = "Hello"; 
-                    alert("Login Successfull "+'<?php echo $_SESSION['handle'] ?>');
-                    window.location.assign("index.php");
-                </script>
-            <?php
+            $flag = false;
+            while($row =mysqli_fetch_array($result))
+            {
+                 if($handle==$row['handle'])
+                 {
+                       $_SESSION['handle']=str_replace(' ','',$row['handle']);
+                       ?>
+                       <script type="text/javascript">  
+                           alert("Login Successfull "+'<?php echo $_SESSION['handle'] ?>');
+                           window.location.assign("index.php");
+                       </script>
+                       <?php
+                       $flag = true;
+                       break;
+                 }
+            }
+            if(!$flag)
+            {
+                  echo "<script> alert('Get Lost,your little tricks won't work here.');</script>";
+            }
         }
         else
         {
@@ -45,7 +60,8 @@ else
 
 <html lang ="en">
 <head>
-<title>Test</title>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<title>Log In</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -72,17 +88,19 @@ else
     <body>
     <div class="container">
         <form autocomplete="on" method="post">
-            <h1 class="display-4">Log-In</h1>
+            <h1 class="display-4"> Log-In </h1><br>
             <p>
-                <label for="handle" >Handle</label>
+                <label for="handle"> Handle </label>
                 <input id="handle" name="handle" required="required" type="text">
             </p>
             <p>
-                <label for="password" >Password</label>
+                <label for="password" > Password </label>
                 <input id="password" name="password" required="required" type="password">
             </p>
-            <a class="btn btn-dark-green waves-effect waves-light " type="button" href="SignUp.php" >Sign Up</a>
-             <button class="btn btn-dark-green waves-effect waves-light " type="submit"  name="btn-login" id="btn-login" >Login</button>
+            <div class="flex-center" style="height: 10vh;">
+                <button class="btn btn-success" type="submit" name="btn-login" id="btn-login"> Login </button>
+                <a class="btn btn-success" type="button" href="SignUp.php"> Sign Up </a>
+            </div>
         </form>
         </div>
     </body>
