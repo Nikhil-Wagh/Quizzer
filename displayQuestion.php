@@ -1,5 +1,7 @@
 <?php
     include("session.php");
+    //echo "start".$_SESSION['start']."<br>";
+   // echo "end".$_SESSION['end'];
     //error_reporting(0);
     //echo $_SESSION['questions'][$_SESSION['qno']];
     if(!isset($_SESSION['handle']))
@@ -9,9 +11,7 @@
         <?php
         header("Location: SignUp.php");
     }
-    $_SESSION['min'] = 60;
-    $_SESSION['sec'] = 60;
-    /*echo "question number".$_SESSION['qno'];
+   /*echo "question number".$_SESSION['qno'];
     echo "<br>Total ".$_SESSION['tqno'];
     echo "<br>qbid ".$_SESSION['qbid'];
     echo "<br>";*/
@@ -187,20 +187,18 @@
         var x = setInterval(function() {
 
             // Get todays date and time
-            var nowmin = new Date().getMinutes();
-            var nowsec = new Date().getSeconds();
-
-            var endmin = <?php echo $_SESSION['min'] ?>;
-            var endsec = <?php echo $_SESSION['sec'] ?>;
-
-            document.getElementById("min").innerHTML =(endmin-nowmin)  ; 
-            document.getElementById("sec").innerHTML =(endsec-nowsec)  ; 
+            var end = <?php echo $_SESSION['end'] ?>;
+            var now = Date.now();
+            now = now/1000;
+           var dist = end - now;
+            
+            document.getElementById("min").innerHTML =Math.floor(dist/60)  ; 
+            document.getElementById("sec").innerHTML =Math.floor(dist%60)  ; 
             // If the count down is over, write some text 
-            if ((endmin-nowmin) < 0&&(endsec-nowsec)<0) {
+            if (dist<0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
                 alert("Times Up");
-                windo.location.assign('score.php');
+                window.location.assign('score.php');
             }
         }, 1000);
     </script>
