@@ -21,8 +21,7 @@ else
         $sql = "SELECT tqno,qbid,time FROM examdetails WHERE id = ".$_SESSION['examid'];
         $result = mysqli_query($conn,$sql);
         $row = mysqli_fetch_array($result);
-        $_SESSION['min'] = $row['time'];
-        $_SESSION['sec'] = 0;
+        $_SESSION['end'] = time()+($row['time']-5)*60+5;
         $_SESSION['tqno'] = $row['tqno'];
         return $row['qbid'];
     }
@@ -164,7 +163,7 @@ else
         <div class="row">
             <div class="col-sm-12" >
                 <button class="btn btn-danger" type="submit" name="btn-start" id="btn-start" style="margin: auto; display: block;"> Begin </button>
-                <button class="btn btn-success" type="submit" name="btn-leader" id="btn-leader" style="margin: auto; display: block;"> Leader Board </button>
+                <button class="btn btn-success" type="submit" name="btn-leader" id="btn-leader" style="margin: auto; display: block;margin-top:8px;"> Leader Board </button>
             </div> 
         </div>
     </form>
