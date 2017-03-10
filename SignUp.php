@@ -47,7 +47,7 @@ if(isset($_POST['btn-signup']))
         .container{
             padding-left: 30%;
             padding-right: 30%;
-            padding-top: 5%;
+            padding-top: 1%;
             margin: auto;
             display: block;
         }
