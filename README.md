@@ -56,7 +56,7 @@ id INT(11) AUTO_INCREMENT PRIMARY KEY,
 handle VARCHAR (20),
 qbname VARCHAR (25))
 ```
-Once this is done put this link in your browser (http://localhost/Quizer/index.php) and you are ready to go.
+Once this is done put this link in your browser (http://localhost/Quizzer-Master/index.php) and you are ready to go.
 
 
 ## Update 
